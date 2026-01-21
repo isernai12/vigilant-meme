@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Add Question</h2>
+    <form method="post">
+        <label>Subject (required)</label>
+        <select name="subject_id" required>
+            {% for subject in subjects %}
+            <option value="{{ subject.id }}">{{ subject.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Category (optional)</label>
+        <select name="category_id">
+            <option value="">-- None --</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Chapter (optional)</label>
+        <select name="chapter_id">
+            <option value="">-- None --</option>
+            {% for chapter in chapters %}
+            <option value="{{ chapter.id }}">{{ chapter.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Question Text</label>
+        <textarea name="text" required></textarea>
+        <label>Option A</label>
+        <input name="option_a" required />
+        <label>Option B</label>
+        <input name="option_b" required />
+        <label>Option C</label>
+        <input name="option_c" required />
+        <label>Option D</label>
+        <input name="option_d" required />
+        <label>Correct (A/B/C/D)</label>
+        <input name="correct" required />
+        <label>Explanation (optional)</label>
+        <textarea name="explanation"></textarea>
+        <label>Difficulty (optional)</label>
+        <input name="difficulty" />
+        <label>Is Active</label>
+        <select name="is_active">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+        <button type="submit" style="margin-top:1rem;">Create</button>
+    </form>
+</div>
+{% endblock %}

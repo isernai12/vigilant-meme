@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Admin Login</h2>
+    <p>Enter your Telegram numeric ID and request a one-time code.</p>
+    <div>
+        <label for="telegram_id">Telegram ID</label>
+        <input id="telegram_id" type="number" placeholder="123456789" />
+        <button onclick="requestOtp()">Send code</button>
+    </div>
+    <div style="margin-top:1rem;">
+        <label for="otp_code">OTP Code</label>
+        <input id="otp_code" type="text" placeholder="6-digit code" />
+        <button onclick="verifyOtp()">Verify & Login</button>
+    </div>
+    <p id="status" style="margin-top:0.8rem;"></p>
+</div>
+<script>
+    async function requestOtp() {
+        const telegramId = document.getElementById('telegram_id').value;
+        const response = await fetch('/api/auth/request-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ telegram_id: telegramId })
+        });
+        const data = await response.json();
+        document.getElementById('status').innerText = response.ok
+            ? `OTP sent. Expires at ${data.expires_at}`
+            : data.detail || 'Failed to send OTP';
+    }
+    async function verifyOtp() {
+        const telegramId = document.getElementById('telegram_id').value;
+        const code = document.getElementById('otp_code').value;
+        const response = await fetch('/api/auth/verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ telegram_id: telegramId, code })
+        });
+        if (response.ok) {
+            window.location.href = '/admin';
+        } else {
+            const data = await response.json();
+            document.getElementById('status').innerText = data.detail || 'Invalid code';
+        }
+    }
+</script>
+{% endblock %}

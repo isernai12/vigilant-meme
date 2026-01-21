@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title or "Admin Panel" }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f8f9fb; color: #222; }
+        header { background: #2b2d42; color: white; padding: 1rem; }
+        main { padding: 1.5rem; max-width: 900px; margin: 0 auto; }
+        .card { background: white; border-radius: 8px; padding: 1rem 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; }
+        label { display: block; margin-top: 0.8rem; font-weight: 600; }
+        input, select, textarea { width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 6px; margin-top: 0.3rem; }
+        button { background: #4f46e5; color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; }
+        .row { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .row > div { flex: 1 1 250px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.6rem; border-bottom: 1px solid #eee; text-align: left; }
+        a { color: #4f46e5; text-decoration: none; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>{{ title or "Admin Panel" }}</h1>
+</header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>
