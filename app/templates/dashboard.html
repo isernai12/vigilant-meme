@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Welcome, {{ admin.telegram_id }}</h2>
+    <div class="row">
+        <div><a href="/admin/subjects/new">Create Subject</a></div>
+        <div><a href="/admin/categories/new">Create Category</a></div>
+        <div><a href="/admin/chapters/new">Create Chapter</a></div>
+        <div><a href="/admin/questions/new">Add Question</a></div>
+        <div><a href="/admin/questions">List Questions</a></div>
+    </div>
+    <form method="post" action="/admin/logout" style="margin-top:1rem;">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+{% endblock %}
