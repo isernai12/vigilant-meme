@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminOtp {
+  id         String   @id @default(cuid())
+  telegramId String
+  codeHash   String
+  expiresAt  DateTime
+  attempts   Int      @default(0)
+  lastSentAt DateTime
+  createdAt  DateTime @default(now())
+
+  @@index([telegramId])
+}
+
+model AdminSession {
+  id         String   @id @default(cuid())
+  telegramId String
+  tokenHash  String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+
+  @@index([telegramId])
+}
+
+model MessageOutbox {
+  id         String   @id @default(cuid())
+  telegramId String
+  message    String
+  status     String   @default("pending")
+  sentAt     DateTime?
+  createdAt  DateTime @default(now())
+
+  @@index([status, createdAt])
+}
+
+model Subject {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  categories Category[]
+  questions Question[]
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  subject   Subject   @relation(fields: [subjectId], references: [id])
+  subjectId String
+  createdAt DateTime  @default(now())
+  chapters  Chapter[]
+  questions Question[]
+
+  @@unique([name, subjectId])
+}
+
+model Chapter {
+  id         String    @id @default(cuid())
+  name       String
+  category   Category  @relation(fields: [categoryId], references: [id])
+  categoryId String
+  createdAt  DateTime  @default(now())
+  questions  Question[]
+
+  @@unique([name, categoryId])
+}
+
+model Question {
+  id         String    @id @default(cuid())
+  text       String
+  optionA    String
+  optionB    String
+  optionC    String
+  optionD    String
+  correct    String
+  subject    Subject   @relation(fields: [subjectId], references: [id])
+  subjectId  String
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+  chapter    Chapter?  @relation(fields: [chapterId], references: [id])
+  chapterId  String?
+  createdAt  DateTime  @default(now())
+
+  @@index([subjectId, categoryId, chapterId, createdAt])
+}
