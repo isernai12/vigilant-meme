@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List
 
 
@@ -12,7 +12,7 @@ class Settings:
     bot_token: str = "PASTE_TELEGRAM_BOT_TOKEN_HERE"
     otp_secret: str = "replace-with-long-random-string"
     session_secret: str = "replace-with-session-secret"
-    admin_telegram_ids: List[int] = [123456789]
+    admin_telegram_ids: List[int] = field(default_factory=lambda: [123456789])
     database_url: str = (
         "postgresql://neko_cvdh_user:LRagi69HR0UdQWmXHO5TijgMfF1Sp0Ze@"
         "dpg-d5o6t0fgi27c73egfg1g-a.oregon-postgres.render.com/neko_cvdh"
