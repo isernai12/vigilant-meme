@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "question": "বাংলাদেশের রাজধানী কোনটি?",
+    "options": ["ঢাকা", "চট্টগ্রাম", "খুলনা", "রাজশাহী"],
+    "answer": 1,
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "question": "Python কোন ধরনের ভাষা?",
+    "options": ["Compiled", "Interpreted", "Markup", "Query"],
+    "answer": 2,
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": 3,
+    "question": "HTTP এর পূর্ণরূপ কি?",
+    "options": [
+      "HyperText Transfer Protocol",
+      "Hyperlink Transfer Process",
+      "HighText Transport Protocol",
+      "HyperText Transmission Program"
+    ],
+    "answer": 1,
+    "created_at": "2024-01-01T00:00:00Z"
+  }
+]

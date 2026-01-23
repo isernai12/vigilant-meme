@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCQ Admin</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 2rem;
+        background: #f8f9fb;
+      }
+      h1 {
+        color: #1f2937;
+      }
+      form {
+        display: grid;
+        gap: 0.75rem;
+        max-width: 540px;
+        background: #ffffff;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      }
+      label {
+        font-weight: 600;
+      }
+      input {
+        padding: 0.6rem;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        font-size: 1rem;
+      }
+      button {
+        padding: 0.75rem;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #1d4ed8;
+      }
+      .error {
+        color: #b91c1c;
+        font-weight: 600;
+      }
+      .mcq-list {
+        margin-top: 2rem;
+        display: grid;
+        gap: 1rem;
+      }
+      .mcq-item {
+        background: white;
+        padding: 1rem;
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
+      }
+      .mcq-item strong {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>MCQ Admin Panel</h1>
+    <p>নতুন MCQ যোগ করুন:</p>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+    <form method="post">
+      <label for="question">প্রশ্ন</label>
+      <input id="question" name="question" required />
+
+      <label for="option1">অপশন 1</label>
+      <input id="option1" name="option1" required />
+
+      <label for="option2">অপশন 2</label>
+      <input id="option2" name="option2" required />
+
+      <label for="option3">অপশন 3</label>
+      <input id="option3" name="option3" required />
+
+      <label for="option4">অপশন 4</label>
+      <input id="option4" name="option4" required />
+
+      <label for="answer">সঠিক উত্তর (1-4)</label>
+      <input id="answer" name="answer" type="number" min="1" max="4" required />
+
+      <button type="submit">MCQ যোগ করুন</button>
+    </form>
+
+    <section class="mcq-list">
+      <h2>বর্তমান MCQ তালিকা</h2>
+      {% if mcqs %}
+      {% for mcq in mcqs %}
+      <article class="mcq-item">
+        <strong>{{ mcq.question }}</strong>
+        <ol>
+          {% for option in mcq.options %}
+          <li>{{ option }}</li>
+          {% endfor %}
+        </ol>
+        <p>সঠিক উত্তর: {{ mcq.answer }}</p>
+      </article>
+      {% endfor %}
+      {% else %}
+      <p>এখনো কোন MCQ যোগ করা হয়নি।</p>
+      {% endif %}
+    </section>
+  </body>
+</html>
